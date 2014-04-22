@@ -37,6 +37,6 @@ f.close()
 # remove the file
 try:
     os.remove(fileName)
-    print "Removal of '%s' successfull" % (fileName)
+    print "Removal of '%s' successful" % (fileName)
 except:
     print "Failed removing %s" % (fileName)
