@@ -14,10 +14,10 @@ else:
 
 command = 'cd "%s" && hg id -i' % (folder)
 
-revision='Command execution error'
+revision=''
 try:
     revision = subprocess.check_output(command,shell=True)
 except:
-    pass
+    revision = 'error'
 
 print "Current revision of HG repository found at '%s' is: %s" % (folder,revision)

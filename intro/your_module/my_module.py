@@ -9,4 +9,4 @@ print __name__
 if __name__=="__main__":
     print "Script called directly"
 else:
-    print "Imported as '" + __name__ + "'"
+    print "Someone imported '" + __name__ + "'"
