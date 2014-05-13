@@ -7,3 +7,4 @@ import my_module
 
 print my_module.MY_CONSTANT
 
+my_module.doStuff("ABC")

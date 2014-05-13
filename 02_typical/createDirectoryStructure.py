@@ -3,38 +3,35 @@
 # This code is under BSD 2-clause license
 
 import os
-from random import *
+import random
 from tempfile import *
 
 fileSuffix=[
-".txt",
-".sh",
-".doc",
-".xml"
+    ".txt",
+    ".sh",
+    ".doc",
+    ".xml"
 ]
 
 fileContents=[
-"Ace of spades",
-"Queen of hearts",
-"King of clubs",
-"Jack of diamonds",
-"World of glass",
-"Wildhoney",
-"New year's day",
-"Jackie",
-"Sinead",
-"Outer limits"
+    "Ace of spades",
+    "Queen of hearts",
+    "King of clubs",
+    "Jack of diamonds",
+    "World of glass",
+    "Wildhoney",
+    "New year's day",
+    "Jackie",
+    "Sinead",
+    "Outer limits"
 ]
 
 def CreateFile():
 
-    randIndex = randrange( len(fileSuffix) )
-    tempFile = NamedTemporaryFile(delete=False,dir='.',prefix='testfile-',suffix=fileSuffix[randIndex],mode='wt')
+    tempFile = NamedTemporaryFile(delete=False, dir='.', prefix='testfile-', suffix=random.choice(fileSuffix), mode='wt')
+    
     # fill the file contents
-
-    randIndex = randrange( len(fileContents) )
-
-    contents = fileContents[randIndex]
+    contents = random.choice(fileContents)
     tempFile.file.write(contents)
 
     tempFile.close()
@@ -50,12 +47,12 @@ def CreateTreeStructure(minFilesPerDirectory,maxFilesPerDirectory,minDirs,maxDir
     if depthLevel <= 0:
         return
 
-    nFiles = randrange(minFilesPerDirectory,maxFilesPerDirectory)
+    nFiles = random.randrange(minFilesPerDirectory,maxFilesPerDirectory)
 
     for i in range(nFiles):
         CreateFile()
 
-    nDirectories = randrange(minDirs,maxDirs)
+    nDirectories = random.randrange(minDirs,maxDirs)
 
     directoryList = []
 
@@ -68,6 +65,7 @@ def CreateTreeStructure(minFilesPerDirectory,maxFilesPerDirectory,minDirs,maxDir
         CreateTreeStructure(minFilesPerDirectory,maxFilesPerDirectory,minDirs,maxDirs,depthLevel-1)
         os.chdir('..')
 
+        
 depthLevel = 4
 minDirs = 2
 maxDirs = 4

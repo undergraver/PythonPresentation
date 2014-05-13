@@ -5,6 +5,7 @@
 from os import path
 import sys
 from random import *
+from sys import argv as argument_list
 
 # test imported from os
 pathToCheck="."
@@ -19,3 +20,6 @@ print "Arguments: " + str(sys.argv)
 # test import from random
 seed()
 print "A random number:" + str( random() )
+
+# test import of sys.path
+print 'argument_list is the same as sys.argv? ' + str(argument_list == sys.argv)

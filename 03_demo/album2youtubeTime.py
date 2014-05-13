@@ -36,9 +36,11 @@ def ConvertSecondsToDuration(seconds):
     while len(values) < 2:
         # make it MM:SS
         values.append(0)
+        
+    values.reverse()
     
     strVal = ""
-    for index in range(len(values)-1,-1,-1):
+    for index in range(len(values)):
         strVal += ("%02d") % values[index]
         if index > 0:
             strVal += ":"

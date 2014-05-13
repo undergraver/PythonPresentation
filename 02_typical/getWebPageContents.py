@@ -15,4 +15,3 @@ if __name__=="__main__":
     url = 'http://www.allmusic.com/album/wildhoney-mw0000940313'
     html = GetWebPageContents(url)
     print html
-

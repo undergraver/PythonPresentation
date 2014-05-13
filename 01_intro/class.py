@@ -43,3 +43,9 @@ fishList = [ fish1 , fish2, WaleShark() ]
 
 for fish in fishList:
     fish.ShowInfo()
+    
+# show all member names of an object
+print "All members"
+for i in dir(fish1):
+    print "  " + i
+
