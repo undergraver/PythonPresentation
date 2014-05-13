@@ -17,7 +17,8 @@ print_profile("linda", "Rupea", age = 25)
 print_profile("aurica", "Darste", age = 25, name = "Aurelia")
 
 # return multiple values
-def gpsPosition()
+print '-' * 40
+def gpsPosition():
     return (45.655902, 25.610652, 415) # a tupple
     
 pos = gpsPosition()
