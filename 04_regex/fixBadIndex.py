@@ -14,7 +14,7 @@ if compiledRegex is None:
     print "Invalid regex"
 
 for line in lines:
-    line = line[:-1]
+    line = line[:-1] # remove the newline
     found = compiledRegex.search(line)
     if found is not None:
         # correct the index
