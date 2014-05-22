@@ -4,6 +4,11 @@
 
 import re
 
+def smartReplace(match):
+    badIndex = int(match.group(1))
+    goodIndex = badIndex-1
+    return 'changeValue('+str(goodIndex)+','
+
 f = open('bad_index.c','rt')
 lines = f.readlines()
 f.close()
@@ -15,15 +20,5 @@ if compiledRegex is None:
 
 for line in lines:
     line = line[:-1] # remove the newline
-    found = compiledRegex.search(line)
-    if found is not None:
-        # correct the index
-        badIndexVal  = int(found.group(1))
-        correctIndexVal = badIndexVal - 1
-
-        # position in the string
-        start = found.start(1)
-        end = found.end(1)
-        print(line[:start]+str(correctIndexVal)+line[end:])
-    else:
-        print(line)
+    line = compiledRegex.sub(smartReplace,line)
+    print line

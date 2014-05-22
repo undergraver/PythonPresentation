@@ -9,7 +9,7 @@ int changeValue(int index, const char *value)
 
 void DoThis()
 {
-    if (is_9_oclock) changeValue( 1,"abc");
+    if (is_9_oclock) { changeValue( 1,"abc"); changeValue( 6,"abc"); }
     if (some_condition) changeValue (2,"xyz");
 }
 
