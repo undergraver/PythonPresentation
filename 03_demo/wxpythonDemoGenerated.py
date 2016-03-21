@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Feb 26 2014)
+## Python code generated with wxFormBuilder (version Jan 31 2016)
 ## http://www.wxformbuilder.org/
 ##
 ## PLEASE DO "NOT" EDIT THIS FILE!
@@ -88,6 +88,44 @@ class Designed_wxPythonDemoFrame ( wx.Frame ):
 		event.Skip()
 	
 	def OnCloseButtonClick( self, event ):
+		event.Skip()
+	
+
+###########################################################################
+## Class Designed_DrawingFrame
+###########################################################################
+
+class Designed_DrawingFrame ( wx.Frame ):
+	
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer5 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_drawingPanel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer5.Add( self.m_drawingPanel, 1, wx.EXPAND |wx.ALL, 0 )
+		
+		
+		self.SetSizer( bSizer5 )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.Bind( wx.EVT_PAINT, self.OnPaint )
+		self.m_drawingPanel.Bind( wx.EVT_PAINT, self.OnPanelPaint )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def OnPaint( self, event ):
+		event.Skip()
+	
+	def OnPanelPaint( self, event ):
 		event.Skip()
 	
 
