@@ -3,7 +3,7 @@
 import random
 
 minVal=0
-maxVal=200
+maxVal=3000
 
 
 def main():

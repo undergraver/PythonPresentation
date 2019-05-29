@@ -4,13 +4,13 @@ import math
 
 # user input
 
-moneyAmount=326312
-monthsOfCredit=60
+moneyAmount=90000
+monthsOfCredit=24
 
 # credit details offered by bank
 
-interestRate=5.73 # that is in percent
-interestRateIncreaseInMonth=1 # that is in percent - because ROBOR/LIBOR/EURIBOR
+interestRate=8.52 # that is in percent
+interestRateIncreaseInMonth=0 # that is in percent - because ROBOR/LIBOR/EURIBOR
 monthlyAdministrativeInterestRate=0.04 # that is in percent ( 0.04% )
 
 def GetInterestRate(monthNumber):
@@ -50,8 +50,9 @@ for monthNumber in range(monthsOfCredit):
 
     if (monthNumber+1) % 12 == 0:
         # print interest per year
-        extraPercent = 100.0 * (yearlyPay-12.0*monthlyRateWithNoInterest) / (12.0*monthlyRateWithNoInterest)
-        print ("Interest per year:%f\n" % (extraPercent))
+	extraPay = yearlyPay - 12.0*monthlyRateWithNoInterest
+        extraPercent = 100.0 * extraPay / (12.0*monthlyRateWithNoInterest)
+        print ("Interest per year:%f; extra pay:%f\n" % (extraPercent,extraPay))
         yearlyPay = 0
     
 
