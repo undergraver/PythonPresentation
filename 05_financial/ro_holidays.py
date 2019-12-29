@@ -11,18 +11,21 @@ daysOff = [
 [1,1], # 1st of January
 [2,1], # 2nd of January
 [24,1], #24th of January
-[1,5],
-[1,6],
-[15,8],
-[30,11],
-[1,12],
-[25,12],
-[26,12]
+[1,5], # Labour Day
+[1,6], # Child Day
+[15,8], # Assumption of Mary
+[30,11], # Saint Andrew
+[1,12], # Romania's National Day
+[25,12], # Christmas
+[26,12] # Boxing day
 ]
 
 totalHolidays=len(daysOff)+4 # Easter and Pentecost add 2+2 more days - 1 on Sunday, one on Monday for each
 
-for year in range(2016,2030):
+today = datetime.date.today()
+year = today.year
+
+for year in range(year,year+10):
     holidaysInWeekend=2 # by default we start with 2 in weekend (Pentecost and Easter)
     for dayOff in daysOff:
         day = dayOff[0]
