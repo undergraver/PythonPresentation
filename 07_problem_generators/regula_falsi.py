@@ -95,7 +95,8 @@ def main():
 
     heads = pl("%d head","%d heads",total_heads) % (total_heads)
     legs = pl("%d leg","%d legs",total_legs) % (total_legs)
-
+    print("******************")
+    print("******************")
     print(tr("In a backyard there are %s and %s.") % (two_legged_animal.name_plural,four_legged_animal.name_plural))
     print(tr("You have %s and %s") % (heads, legs))
     print(tr("How many %s?") % (two_legged_animal.name_plural))
