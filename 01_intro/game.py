@@ -1,14 +1,26 @@
 #!/usr/bin/env python
 
 import random
+import sys
 
 minVal=0
 maxVal=1000
 
+def print_msg(msg):
+    sys.stdout.write(msg+"\r\n")
+    sys.stdout.flush()
+
+def print_err(msg):
+    sys.stderr.write(msg+"\r\n")
+    sys.stderr.flush()
+
+def print_all(msg):
+    print_msg(msg)
+    print_err(msg)
 
 def main():
     numberToGuess = random.randint(minVal,maxVal)
-    print("Computer has generated a number between %d and %d. Guess that number!" % (minVal,maxVal))
+    print_msg("Computer has generated a number between %d and %d. Guess that number!" % (minVal,maxVal))
 
     numberOfTries = 0
     done = False
@@ -16,8 +28,8 @@ def main():
     while not done:
 
         try:
-            currentNum = int(input(""))
-        except:
+            currentNum = int(raw_input(""))
+        except Exception as e:
             break
 
         numberOfTries = numberOfTries + 1
@@ -27,12 +39,13 @@ def main():
             continue
 
         if currentNum < numberToGuess:
-            print("Number too small")
+            print_msg("Number too small")
         else:
-            print("Number too big")
+            print_msg("Number too big")
 
     if done:
-        print("Well done! You guessed the number after %d attempts." % (numberOfTries))
+        msg = "Well done! You guessed the number %d after %d attempts." % (currentNum,numberOfTries)
+        print_err(msg)
 
 if __name__=="__main__":
     main()
