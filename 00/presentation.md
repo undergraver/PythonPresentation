@@ -82,26 +82,6 @@ Exagerated example, storing the previous types in a list (comments are after # a
 >>>
 ```
 
-## Functions
-You will not use python in the interpreter in most of the cases so you will need to write the code into a file. When doing this, most likely you will start making functions to avoid rewriting code multiple times.
-In this case we use the "Idle" editor that comes with Python (not the only one that can be used).
-Example:
-```
-def half_square(number):
-    value = number*number
-    value = value / 2
-    return value
-
-
-v = half_square(6)
-print(v)
-v = half_square(7)
-print(v)
-
-```
-
-Functions are the first step towards a structured program, where several operations can be used.
-
 ## Modules
 Modules can be seen as toolboxes with various tools inside of them. Those tools can be functions, classes or even other (sub)modules. For the moment we're looking at some modules that come with the normal Python distribution. One of these modules is the math module containing various mathematical functions like sqrt and pow. We can use the "import" keyword to be able to use the module.
 ```
@@ -140,12 +120,155 @@ Another way of using the module is to use the "from MODULE import ..." syntax ju
 >>> 
 
 ```
+## Elements of structured programming
 
+### Functions
+We've seen previously that we had code with functions like "print", "pow", "cos" etc. These functions can even return values even that is not always necessarily.
+```
+>>> import math
+>>> ret = math.pow(2,4)
+>>> print(ret)
+16.0
+>>> type(ret)
+<class 'float'> # this means pow returns a float
+>>> val = print('test')
+test
+>>> type(val)
+<class 'NoneType'> # the print function doesn't return anything
+>>>
+```
+
+But you can also write your own functions that being a  first step towards structured programming.
+
+Since you will not use python in the interpreter in most of the cases so you will need to write the code into a file. When doing this, most likely you will start making functions to avoid rewriting code multiple times.
+In this case we use the "Idle" editor that comes with Python (not the only one that can be used) out of commodity but we should switch in time to more complex editors with more optoins.
+
+Example:
+```
+def half_square(number):
+    # number is the only parameter of this function
+    value = number*number
+    value = value / 2
+    return value
+
+#### - please remark the indentation (4 spaces in this case, but it also can be 2 spaces, a TAB etc - the idea is to have it consistent inside a single file)
+
+v = half_square(6)
+print(v)
+v = half_square(7)
+print(v)
+
+```
+
+Using functions makes the code reusable/easier because you stop repeating the same procedures again in different parts of code, replacing this with a simple call. The functions receive one or more parameters; in our case there was only one but we can write functions receiving multiple parameters, even **variable number of parameters** if that's desired.
+
+### Conditional statements
+
+This chapter tells you how write conditional code, that is code that depends on specific conditions. This is done via the **if** statement, following the same indentation found in the case of functions. We're going make use of a module called random which will provide us with pseudo-random numbers - more on this topic here: https://docs.python.org/3/library/random.html
+
+```
+import random
+
+lab = random.randint(3,10) # an integer between 3 and 10, including 3 and 10
+exam = random.randint(3,10)
+
+# NOTE: Comments with multiple # are here to show how indentation works
+
+if lab >= 5:
+    if exam >= 5:
+        print("You passed.")
+        
+####
+    #### - under this if
+
+    else:
+        print("You qualified for the exam but failed.")
+
+####
+    #### - under this else
+
+
+#### - under the first if
+    s = "Lab grade was {0} and exam grade was {1}.".format(lab, exam)
+    print(s)
+
+else:
+    print("You failed to qualify for the exam.")
+    # see https://docs.python.org/3/library/string.html#formatstrings
+    # for more information about formatting strings (quite a lot of reading)
+    dynamicString = "Your lab grade was {0} which is below 5.".format(lab)
+    print(dynamicString)
+
+```
+
+But beside if/else we also have elif (else if) which can make multiple conditions inside your code. For example we want to know if a number is between two numbers. For this we'll read the data as user input (standard input, stdin or console is the word, depending on your environment).
+
+```
+low=5
+high=10
+# the next formatting is more difficult but if you really want to understand it
+# go to this page https://docs.python.org/3/library/string.html#formatexamples
+print("We will tell you if a number is between %d and %d." % (low, high))
+string_value = input("Please enter your number:")
+x = int(string_value) # transforms the string into an integer
+if x < low:
+    print("{0} is below {1}".format(x,low))
+elif x > high:
+    print("{0} is above {1}".format(x,high))
+else:
+    print("{0} is between {1} and {2}".format(x,low,high))
+
+```
+
+### Loops
+
+Loops are a way to iterate through sets of data. We'll show a simple example printing each part of a string after we split it.
+```
+my_string = "apples,organges,figs,mushrooms"
+fruits = my_string.split(',') # we split after "," separator
+
+# it iterates through a list
+for f in fruits:
+    print(f)
+
+# we can also iterate based on a counter
+
+counter = 0
+# while the condition is true this repeats
+while counter < 10:
+    print(counter)
+    # failure to increment the value results in an infinite loop; try it
+    counter = counter + 1
+
+# isn't it cool you can multiply strings?
+print('+'*80)
+
+for n in range(10):
+    print(n)
+```
+
+Most of the time you need to play little with everything to be familiar.
+
+You can also check the "range" object which returns an iterable entity that can be displayed with a for. In the example above you can see it as the last example.
+
+All these can be learnt at your own pace with additional information from https://docs.python.org/3/tutorial/introduction.html
+
+If you really want to go into more details start here: https://docs.python.org/3/tutorial/
+
+**Make sure you attain the proper language used in python programming.** This will be the most important thing because you will need to search for issues on the interwebs and without the proper framing you will most likely end up in areas that will waste your time.
 
 # Asking for help
-Usually you can search the online help via your search engine and it will get you somewhere under this domain: https://docs.python.org/
+Usually you can search the online help via your search engine and it will **usually** get you somewhere under this domain: https://docs.python.org/
 You can also search for help in the interpreter via the help command
 ```
+>>> import math
+>>> help(math.pow)
+Help on built-in function pow in module math:
+
+pow(x, y, /)
+    Return x**y (x to the power of y).
+
+>>>
 >>> help(str)
 Help on class str in module builtins:
 
