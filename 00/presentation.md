@@ -82,6 +82,8 @@ Exagerated example, storing the previous types in a list (comments are after # a
 >>>
 ```
 
+This can be continued with some more comprehensive documentation found here: https://docs.python.org/3/tutorial/datastructures.html (there are also other data structres presented there)
+
 ## Modules
 Modules can be seen as toolboxes with various tools inside of them. Those tools can be functions, classes or even other (sub)modules. For the moment we're looking at some modules that come with the normal Python distribution. One of these modules is the math module containing various mathematical functions like sqrt and pow. We can use the "import" keyword to be able to use the module.
 ```
@@ -120,6 +122,8 @@ Another way of using the module is to use the "from MODULE import ..." syntax ju
 >>> 
 
 ```
+Want to go deep? Mariana Trench is a joke compared to amount of tutorials you can find online. Start here: https://docs.python.org/3/tutorial/modules.html
+
 ## Elements of structured programming
 
 ### Functions
@@ -256,6 +260,104 @@ All these can be learnt at your own pace with additional information from https:
 If you really want to go into more details start here: https://docs.python.org/3/tutorial/
 
 **Make sure you attain the proper language used in python programming.** This will be the most important thing because you will need to search for issues on the interwebs and without the proper framing you will most likely end up in areas that will waste your time.
+
+## Classes
+
+Classes are way to define actual objects in Python. The theory and options behind this is quite big but we'll have some examples in order to understand what we are talking about. We already used classes in our examples. For example a list is a class, an integer is also a class, a float is a class etc. It is always an interesting thing to type help with the particular class to find out more info about it. For example here I found out about bit_count and bit_length which are quite interesting functions. For these functions there are a lot of functions starting with `__` like `__add__` which is actually how the `+` operator performs. 
+
+```
+>>> x=4
+>>> y=1.1
+>>> type(x)
+<class 'int'>
+>>> type(y)
+<class 'float'>
+>>> help(x)
+Help on int object:
+
+class int(object)
+ |  int([x]) -> integer
+ |  int(x, base=10) -> integer
+....
+ |  bit_count(self, /)
+ |      Number of ones in the binary representation of the absolute value of self.
+ |
+ |      Also known as the population count.
+ |
+ |      >>> bin(13)
+ |      '0b1101'
+ |      >>> (13).bit_count()
+ |      3
+ |
+ |  bit_length(self, /)
+ |      Number of bits necessary to represent self in binary.
+ |
+ |      >>> bin(37)
+ |      '0b100101'
+ |      >>> (37).bit_length()
+ |      6
+```
+
+Those functions can actually be called on an integer instance.
+```
+>>> x=4 # 100 in binary
+1
+>>> x=7 # 111 in binary
+>>> x.bit_count()
+3
+>>>
+```
+
+We will not go to deep, but stick to basic stuff, leaving an idea on how they can be used.
+As an example we'll show some of the properties of a city with the help of a class. 
+```
+class City:
+    # this is a special function called a constructor
+    # it receives 3 parameters (the self parameter is
+    # a reference to the class instance)
+    def __init__(self,name,country,population):
+        self.name = name
+        self.country = country
+        self.population = population
+
+    # this is a function that describes the contents as string
+    # more info here: https://docs.python.org/3/reference/datamodel.html#object.__str__
+    def __str__(self):
+        s = "{0} from {1} with a population of {2}"
+        return s.format(self.name, self.country,self.population)
+
+    # this is absurd, it's only for demo
+    # more here: https://docs.python.org/3/reference/datamodel.html#object.__add__
+    def __add__(self,city):
+        city_names = [self.name, city.name]
+        newname = "+".join(city_names) # see join method of string
+        city_countries = [self.country, city.country]
+        newcountry = "/".join(city_countries)
+        population = self.population + city.population
+        return City(newname,newcountry,population)
+        
+
+
+p = City("Paris","France",11000000)
+l = City("London","UK",9000000)
+
+print(p)
+print(l)
+
+print(p+l)
+
+print(p.name)
+print(l.population)
+print(l.country)
+
+```
+In the example above we could get rid of `__add__` and `__str__` if we're not interested in displaying the class as string (or adding them) but rather use it as a property bundle, that being 100% correct. To access the class members you can simply use the `.` like shown above in the last lines.
+
+Go for more information here: https://docs.python.org/3/tutorial/classes.html.
+
+## Reading/Writing to files
+
+## Command line arguments
 
 # Asking for help
 Usually you can search the online help via your search engine and it will **usually** get you somewhere under this domain: https://docs.python.org/
