@@ -84,6 +84,64 @@ Exagerated example, storing the previous types in a list (comments are after # a
 
 This can be continued with some more comprehensive documentation found here: https://docs.python.org/3/tutorial/datastructures.html (there are also other data structres presented there)
 
+We can access elements by their position but keep in mind that the first element has index 0, just like in the next example:
+```
+>>> l=[1.0, 101, 'my string']
+>>> l[0]
+1.0
+>>> l[1]
+101
+>>> l[2]
+'my string'
+>>> l[3]
+Traceback (most recent call last):
+  File "<python-input-4>", line 1, in <module>
+    l[3]
+    ~^^^
+IndexError: list index out of range
+>>>
+>>> l[-1]
+'my string'
+>>>
+```
+
+Python also offers for convenience negative indices like "-1" index for the last element but we need to be careful when using those:
+```
+>>> l[-1]
+'my string'
+>>> l[-2]
+101
+>>> l[-3]
+1.0
+>>> l[-4]
+Traceback (most recent call last):
+  File "<python-input-8>", line 1, in <module>
+    l[-4]
+    ~^^^^
+IndexError: list index out of range
+>>>
+```
+
+We can also get parts of the array via the "slicing" notation. For example returning a slice of the list without the first element is done like this:
+```
+>>> l = [1,2,3,4,5,6,7,8]
+>>> l[1:]
+[2, 3, 4, 5, 6, 7, 8]
+```
+
+```
+>>> l[0:2] # elements between index 0 and index 2 (not including), that is index 0 and 1
+[1, 2]
+>>> l[:2]  # elements until index 2 (the same as above)
+[1, 2]
+>>> l[1:8:3] # elements from index 1, until 8 with a step of 3
+[2, 5, 8]
+>>> l[0:8:3] # elements from index 0, until 8
+[1, 4, 7]
+>>>
+```
+Further documentation: https://docs.python.org/3/library/functions.html#slice
+
 ## Modules
 Modules can be seen as toolboxes with various tools inside of them. Those tools can be functions, classes or even other (sub)modules. For the moment we're looking at some modules that come with the normal Python distribution. One of these modules is the math module containing various mathematical functions like sqrt and pow. We can use the "import" keyword to be able to use the module.
 ```
@@ -434,7 +492,7 @@ Once a file is closed any operation on it will fail by throwing an exception; ex
 Only the first three lines are relevant to this chapter, the rest being already presented before.
 
 ```
-f = open("vote_count.txt","rt")
+f = open("vote_count.txt","rt") # r - is for reading, t - is for text (even if it's implicit - see help for more)
 buf = f.read() # this reads the entire file and put it into bug
 f.close() # we close the file as we no longer need it
 
@@ -456,7 +514,130 @@ print(sum)
 
 We will extend the previous code to write the final result inside another text file named "total_votes.txt" that should contain only one integer on a line, representing the sum of those integers.
 
+As you might guess writing files is very similar to what we described before so the example comes with no explanation but as an append at the previous example:
+```
+f = open("vote_count.txt","rt") # r - reading, t - text (implicit); check help!
+buf = f.read() # this reads the entire file and put it into bug
+f.close() # we close the file as we no longer need it
+
+split_integers_as_strings = buf.split()
+# after this operation we have a list of integers each as string
+
+#print(split_integers_as_strings)
+
+sum = 0
+for int_str in split_integers_as_strings:
+    int_value = int(int_str) # convert from string to int
+    sum = sum + int_value
+
+print(sum)
+
+f = open('total_votes.txt',"wt")
+sum_as_str = str(sum)
+f.write(sum_as_str)
+f.close()
+
+```
+
 ## Command line arguments
+
+In the previous two example we've seen that the names of the files are written inside the python scripts. That is good for learning/testing but in real life it might be that we have multiple files whose names are not known that should be processed making it very difficult for these programs to be extendable. In such cases a very good option is to pass the files we want to process at command line. This is a very used thing in Unix environment where command line tools are extremely powerful. For example we can search for a particular string in multiple files and we can use the **cat** and **grep** commands.
+
+Unix example on how command line parameters work:
+```
+# file1 file2 file3 are command line arguments to "cat" command
+# python is a command line argument to "grep" command
+cat file1 file2 file3 | grep python # we find out if python can be found in these 3 files
+```
+As you might imagine we will expand the example that we have in order to perform the sum (from reading section) on multiple files. The way Python offers to us the arguments is via the sys.argv string list (from the sys module offered by Python).
+
+A simple example and how to run it:
+
+Code:
+```
+import sys
+print(sys.argv)
+```
+
+How to execute it (sensitive data was removed):
+```
+c:\Users\Downloads\source\00>007_args.py
+['C:\\Users\\Downloads\\source\\00\\007_args.py']
+
+c:\Users\Downloads\source\00>007_args.py 1 2 3 4 5
+['C:\\Users\\Downloads\\source\\00\\007_args.py', '1', '2', '3', '4', '5']
+
+c:\Users\Downloads\source\00>
+```
+
+As we can see the first argument is the name of the python script (index 0) and the second (index 1) is the first actual param and so on. 
+
+Based on this we will extend the example from the reading phase to be able to handle each file. This implies some small refactoring to avoid duplicate code which is accepted in code meant for educational purposes but not in production.
+
+This code is a more structured version of the initial one:
+```
+import sys
+
+def count_votes(file_name):
+    f = open(file_name,"rt")
+    buf = f.read() # this reads the entire file and put it into bug
+    f.close() # we close the file as we no longer need it
+
+    split_integers_as_strings = buf.split()
+    # after this operation we have a list of integers each as string
+
+    #print(split_integers_as_strings)
+
+    total = 0
+    for int_str in split_integers_as_strings:
+        int_value = int(int_str) # convert from string to int
+        total = total + int_value
+
+    return total
+
+total_votes = 0
+file_list = sys.argv[1:] # eliminate the first element
+for fname in file_list:
+    total_votes += count_votes(fname)
+
+print("Total votes in:"+str(file_list)+":"+str(total_votes))
+```
+
+Executing it gives us the following output:
+```
+c:\Users\Downloads\source\00>008_command_line.py vote_count.txt
+Total votes in:['vote_count.txt']:15
+
+c:\Users\Downloads\source\00>008_command_line.py vote_count.txt vote_count.txt
+Total votes in:['vote_count.txt', 'vote_count.txt']:30
+
+c:\Users\Downloads\source\00>008_command_line.py vote_count.txt vote_count.txt vote_count.txt
+Total votes in:['vote_count.txt', 'vote_count.txt', 'vote_count.txt']:45
+
+c:\Users\Downloads\source\00>
+```
+
+### Deeper dive for command line arguments
+Command line arguments can be extended to offer many options to the programs we're making. If we go back to unix functions we can find from their manual (man grep) they have a lot of options. For example grep can be case insensitive in their search when passing the -i argument.
+```
+man grep excerpt
+...
+       -i, --ignore-case
+              Ignore case distinctions, so that characters that differ only in
+              case match each other.
+...
+```
+
+So when issueing this command grep will search also for Python, PYTHON, pYTHon etc, not only for python
+```
+cat file1 file2 file3 | grep -i python
+```
+
+This can be achieved via the argparse module https://docs.python.org/3/library/argparse.html from python. We will not cover this here.
+
+## Exceptions and their handling
+
+
 
 # Asking for help
 Usually you can search the online help via your search engine and it will **usually** get you somewhere under this domain: https://docs.python.org/
