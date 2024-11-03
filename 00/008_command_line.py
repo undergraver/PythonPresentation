@@ -2,7 +2,7 @@ import sys
 
 def count_votes(file_name):
     f = open(file_name,"rt")
-    buf = f.read() # this reads the entire file and put it into bug
+    buf = f.read() # this reads the entire file and put it into buf
     f.close() # we close the file as we no longer need it
 
     split_integers_as_strings = buf.split()
