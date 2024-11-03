@@ -357,6 +357,105 @@ Go for more information here: https://docs.python.org/3/tutorial/classes.html.
 
 ## Reading/Writing to files
 
+Most of the programs need to interact with the environment in which they are executed for different purposes like
+- reading input data which is difficult to pass from user input
+- writing results of operations which could be the input for other programs
+
+Note: In this section we will concentrate on writing text files which are very easy to understand. This doesn't include writing formatted text files like XML (via https://docs.python.org/3.13/library/xml.etree.elementtree.html ) even though they are still text files.
+
+### Reading
+We will offer a simple example on how to read data from a file named "vote_count.txt". This file should contain integers that are separated by space, new lines, tabs etc so that we can obtain the entire list with a simple "split" operation as described in the help:
+```
+>>> help(str.split)
+Help on method_descriptor:
+
+split(self, /, sep=None, maxsplit=-1) unbound builtins.str method
+    Return a list of the substrings in the string, using sep as the separator string.
+
+      sep
+        The separator used to split the string.
+
+        When set to None (the default value), will split on any whitespace
+        character (including \n \r \t \f and spaces) and will discard
+        empty strings from the result.
+      maxsplit
+        Maximum number of splits.
+        -1 (the default value) means no limit.
+
+    Splitting starts at the front of the string and works to the end.
+
+    Note, str.split() is mainly useful for data that has been intentionally
+    delimited.  With natural text that includes punctuation, consider using
+    the regular expression module.
+>>>
+```
+The final result of the reading should be the sum of all integers printed on the screen.
+
+For opening a file we have the "open" which is a Python built-in function which returns an object through which we can perform operations on that file (reading in this case)
+
+```
+>>> f = open("members-os4k-ro.csv","rt")
+>>> dir(f)
+['_CHUNK_SIZE', '__class__', '__del__', '__delattr__', '__dict__', '__dir__', '__doc__', '__enter__', '__eq__', '__exit__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__next__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '_checkClosed', '_checkReadable', '_checkSeekable', '_checkWritable', '_finalizing', 'buffer', 'close', 'closed', 'detach', 'encoding', 'errors', 'fileno', 'flush', 'isatty', 'line_buffering', 'mode', 'name', 'newlines', 'read', 'readable', 'readline', 'readlines', 'reconfigure', 'seek', 'seekable', 'tell', 'truncate', 'writable', 'write', 'write_through', 'writelines']
+>>> type(f)
+<class '_io.TextIOWrapper'>
+>>>
+```
+
+To read everything from a file in a string you can use the read() function which with default parameters will read entire file and return a string with it:
+```
+>>> help(f.read)
+Help on built-in function read:
+
+read(size=-1, /) method of _io.TextIOWrapper instance
+    Read at most size characters from stream.
+
+    Read from underlying buffer until we have size characters or we hit EOF.
+    If size is negative or omitted, read until EOF.
+
+>>>
+```
+
+After the file is no longer needed best practice is to close it (via close function). All files will be closed when program exits but if your programs makes a lot of operations that involve reading many files it might turn out you're going to be out of resources at some point.
+
+```
+>>> f.close()
+>>> f.read()
+Traceback (most recent call last):
+  File "<python-input-8>", line 1, in <module>
+    f.read()
+    ~~~~~~^^
+ValueError: I/O operation on closed file.
+>>> 
+```
+
+Once a file is closed any operation on it will fail by throwing an exception; exceptions and their handling will be discussed later.
+
+Only the first three lines are relevant to this chapter, the rest being already presented before.
+
+```
+f = open("vote_count.txt","rt")
+buf = f.read() # this reads the entire file and put it into bug
+f.close() # we close the file as we no longer need it
+
+split_integers_as_strings = buf.split()
+# after this operation we have a list of integers each as string
+
+#print(split_integers_as_strings)
+
+sum = 0
+for int_str in split_integers_as_strings:
+    int_value = int(int_str) # convert from string to int
+    sum = sum + int_value
+
+print(sum)
+
+```
+
+### Writing
+
+We will extend the previous code to write the final result inside another text file named "total_votes.txt" that should contain only one integer on a line, representing the sum of those integers.
+
 ## Command line arguments
 
 # Asking for help
