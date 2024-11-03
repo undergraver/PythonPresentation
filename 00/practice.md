@@ -52,3 +52,7 @@ This is already covered and nothing new is presented here.
 This can be done via functions from os module. Self study is required: https://docs.python.org/3/library/os.html
 
 Please be sure that the filename of the newly created file also includes the directory name. For example for writing the file "John_Smith_document.txt" in the "generated" directory the name of the file will be "generated/John_Smith_document.txt"
+
+# Possible improvements
+
+Creating your own modules in orer to have your code more manageable rather than have everything in a single file. Please see this tutorial https://docs.python.org/3/tutorial/modules.html
