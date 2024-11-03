@@ -637,6 +637,84 @@ This can be achieved via the argparse module https://docs.python.org/3/library/a
 
 ## Exceptions and their handling
 
+The computer is not the place where everything works every time as expected. For example:
+
+- we can try to write a file and the disk is full
+- we are trying to access a web site and the internet connection fails
+- we try to open a file and the file cannot be access (doesn't exist or we have no rights to create the file in that particular directory)
+- we make a division by 0 because we haven't validated the data.
+- ...
+
+When such exception are raised the program will exit if the are not handled. Sometimes this is a good thing, but if we can handle those exceptions we should do that and leave the program running forward.
+
+Example of code uncaught exception and the output in few scenarios:
+```
+s1 = input("dividend:")
+s2 = input("divisor:")
+
+f1 = float(s1)
+f2 = float(s2)
+
+res = f1/f2
+
+print("The result is:"+str(res))
+```
+
+As we can see in the first case the code stops when the exception is happening because of the exception.
+
+```
+c:\Users\Downloads\source\00>009_exception_not_caught.py
+dividend:3
+divisor:0
+Traceback (most recent call last):
+  File "C:\Users\Downloads\source\00\009_exception_not_caught.py", line 7, in <module>
+    res = f1/f2
+          ~~^~~
+ZeroDivisionError: float division by zero
+
+c:\Users\Downloads\source\00>009_exception_not_caught.py
+dividend:3
+divisor:2
+The result is:1.5
+
+c:\Users\Downloads\source\00>
+```
+
+To prevent this we should rewrite the code to handle the exceptions in some parts of code just like in the next example:
+```
+s1 = input("dividend:")
+s2 = input("divisor:")
+
+f1 = float(s1)
+f2 = float(s2)
+
+try:
+    res = f1/f2
+#except: # < we can use this method if don't want cathing the exception
+except Exception as e:
+       print("Exception caught:"+str(e))
+       res = "Invalid input"
+
+print("The result is:"+str(res))
+```
+
+Output is:
+```
+c:\Users\Downloads\source\00>009_exception_caught.py
+dividend:3
+divisor:0
+Exception caught:float division by zero
+The result is:Invalid input
+
+c:\Users\Downloads\source\00>009_exception_caught.py
+dividend:3
+divisor:4
+The result is:0.75
+
+c:\Users\Downloads\source\00>
+```
+
+We can also raise exceptions from our code but that is not going to be presented here. For more details about exceptions please visit this page: https://docs.python.org/3/tutorial/errors.html
 
 
 # Asking for help
