@@ -23,7 +23,10 @@ Successfully installed lxml-5.3.0 python-docx-1.1.2 typing-extensions-4.12.2
 
 c:\Users\Downloads>
 ```
-## Handling xml files
+## Handling xml input
+to be documented
+
+## Handling json input
 to be documented
 
 ## Writing docx documents
