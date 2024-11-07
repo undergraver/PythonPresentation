@@ -1,6 +1,14 @@
+# References
+* https://www.w3schools.com/python/default.asp
+* https://docs.python.org/3/tutorial/
+* https://docs.python.org/3/reference/
+
 # About Python
 
-Python is an interpreted programming language. That means you cannot execute the python code you've written if you don't have Python installed. In order to install it go to https://www.python.org/downloads/ and select the version you desire. 
+Python is an interpreted programming language. That means you cannot execute the python code you've written if you don't have Python installed. 
+
+## Installing Python
+In order to install it go to https://www.python.org/downloads/ and select the version you desire. 
 * For Windows you select the latest version, launch installer, make sure Python is in PATH (option from the installer) and put it in a shorter path like "C:\Python\Python313" instead of the default one (inside your user directories)
 * For Linux you should prefer to get it from your distribution's repository.
 
