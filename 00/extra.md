@@ -23,6 +23,8 @@ Successfully installed lxml-5.3.0 python-docx-1.1.2 typing-extensions-4.12.2
 
 c:\Users\Downloads>
 ```
+## Handling xml files
+to be documented
 
 ## Writing docx documents
 
@@ -54,6 +56,8 @@ if required
 if required
 ## Accessing web pages via urllib (available in python, not an external library)
 if required
+module urllib.request provides this functionality.
+Full documentation can be found here: https://docs.python.org/3/library/urllib.request.html (See Examples)
 ## Other data structures in python
 self study: dict, set etc https://docs.python.org/3/tutorial/datastructures.html
 This can be detailed if required.
