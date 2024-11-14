@@ -56,6 +56,31 @@ No need for many comments here:
 3.0
 >>>
 ```
+### Boolean
+These are variables that can be true or false. In python they are simply defined via True and False.
+```
+>>> x=False
+>>> y=True
+>>> type(x)
+<class 'bool'>
+>>> type(x)
+<class 'bool'>
+```
+
+### Dictionary
+Is a key-value pair of data structure.
+First is the key, second is the value. In the example below, "city", "country" and "age" are keys, and they associates are values.
+```
+>>> d={'city':'London','country':'UK','age':1000}
+>>> d
+{'city': 'London', 'country': 'UK', 'age': 1000}
+>>> d['city']
+'London'
+>>> d['age']
+1000
+
+```
+
 ### String
 It's a basic container which stores characters - it can be considered as an array of characters. It's actually text that appears everywhere. Full docs: https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str
 You can do many operations like add string to another string.
