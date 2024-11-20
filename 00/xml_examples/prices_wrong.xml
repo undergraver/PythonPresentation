@@ -1,0 +1,27 @@
+<prices>
+    <!--
+        we should remove expired products and offer 60%
+        discount for products expiring in the next 10 days or less
+
+        date format is YYYY-MM-DD (year-month-day)
+    -->
+    <product name="Potatoes">
+    <price>100</price>
+    <expiration>2024-11-29</expiration>
+    </product>
+
+    <product name="Tomatoes">
+    <price>150</price>
+    <expiration>2024-10-15</expiration>
+    </product>
+
+    <product name="Apples">
+    <price>300</price>
+    <expiration>2024-12-01</expiration>
+    </product>
+
+    <product name="Oranges">
+    <price>600</price>
+    <expiration>2025-03-15</expiration>
+    </product>
+</prices>
