@@ -580,9 +580,6 @@ Previously we've seen how to write simple text files. However in normal day to d
 
 The advantage of text file format is that they can be easily read by human eye and you can easily perform changes to them, if required. We're going to examine next some of the most used text file formats together with examples, references.
 
-### XML file format
-The xml file format is a way of storing data between tags. Using this way of storing information. Documentation about the format: https://en.wikipedia.org/wiki/XML
-
 ### JSON file format
 The json format is very used when it comes to web services. It is preferred because it is easily digestable from Java Script, which is heavily used in modern web application. Even its name comes from that particular usage as you can see from the documentation: https://en.wikipedia.org/wiki/JSON
 
@@ -624,6 +621,51 @@ for phone_number in phoneNumbers:
 #print(data)
 
 ```
+##### Scanning a directory for json files
+This is achieved via os.listdir function or via the glob.glob function as it can be seen from the next example.
+
+```
+import json
+import os
+import glob
+
+def load_json_info(filename):
+    print("*"*40)
+    print("Analyzing:"+filename)
+    f = open(filename,'r')
+    buf = f.read()
+    f.close()
+
+    data = json.loads(buf)
+
+    print("Name:"+data['first_name'])
+    print('Age:'+str(data['age']))
+    print('Height:'+str(data['height']))
+
+    print(data['phone_numbers'][0]['number'])
+
+    phoneNumbers = data['phone_numbers']
+    print("Phone numbers:")
+    for phone_number in phoneNumbers:
+        print("{0} number is {1}".format(phone_number['type'],phone_number['number']))
+
+
+
+files = os.listdir('json_dir')
+print("No filter - with listdir")
+print(files)
+print("Filtering listdir output")
+# dumb filter
+for name in files:
+    if name.find('.json') >= 0:
+        print(name)
+
+print("Smarter filter with glob")
+# smarter filter
+files = glob.glob("json_dir/*.json")
+for file in files:
+    load_json_info(file)
+```
 
 #### Writing JSON
 ```
@@ -644,6 +686,103 @@ with open('json_written.json','wt') as f:
 # the json would be written on a single line - same information, but less human readable
 #
 # please check
+```
+
+### XML file format
+The xml file format is a way of storing data between tags. Using this way of storing information. Documentation about the format: https://en.wikipedia.org/wiki/XML.
+Python also offers modules to handle the XML manipulation. The documentation used for making these examples is here: https://docs.python.org/3/library/xml.etree.elementtree.html
+
+The following samples can be found here in the `xml_examples` directory.
+
+#### Reading XML
+```
+import xml.etree.ElementTree as ET
+
+# Sample XML string
+xml_data = """
+<note>
+    <to>Tove</to>
+    <from>Jani</from>
+    <heading>Reminder</heading>
+    <body at1="1" at2="2">Don't forget me this weekend!<subbody>This is a child of body</subbody></body>
+</note>
+"""
+
+# NOTE: We can use parse method to load data from a file but for
+# simplicity we use the above string - see the """ way of declaring string
+# which makes life easier in case you want to put entire file contents inside
+# your python script
+
+
+# Parse the XML string
+root = ET.fromstring(xml_data)
+
+# Access elements
+print(root.tag)  # Output: 'note'
+for child in root:
+    print(child.tag, child.text)  # Print tag and text content
+    if child.tag == 'body':
+        print(child.attrib) # we can access this way the attributes as a dictionary
+        print(child.attrib['at1'])
+        for bc in child: # we can go deeper for children of body, if required
+            print("subchild of body:"+bc.tag)
+
+```
+
+#### Writing XML
+This example shows how to load an xml, edit some parts of it/remove elements, and then write it back as a corrected XML.
+
+```
+import xml.etree.ElementTree as ET
+import sys
+import datetime
+
+tree = ET.parse('prices_wrong.xml')
+root = tree.getroot()
+root_tag_name = "prices"
+if root.tag != root_tag_name:
+    print("Expected {0} as root tree but got {1}".format(root_tag_name,root.tag))
+    sys.exit(1)
+
+to_remove = []
+for product in root:
+    if product.tag != "product":
+        print("Ignoring unexpected tag:%s" % (product.tag))
+        continue
+    #name = product.attrib['name']
+    name = product.get('name') # same as above
+    price = 0
+    expiration = None
+    
+    pricetag = product.find('price')
+    price = int(pricetag.text)
+    expirationTag = product.find('expiration')
+    yyyymmdd = expirationTag.text
+    y,m,d = yyyymmdd.split('-')
+    expiration = datetime.date(int(y),int(m),int(d))
+
+    # check the date, if expired via timedelta
+    delta = datetime.timedelta(days=10)
+    today = datetime.date.today()
+    if expiration <= today:
+        print("Product %s should be removed as it expired on %s" % (name,str(expiration)))
+        to_remove.append(product)
+        # we can remove it from here also
+    elif today + delta >= expiration:
+        discount_percent = 60
+        print("Product {0} will expire on {1}. Applying {2}% discount".format(name,str(expiration),discount_percent))
+        old_price = price
+        new_price = price * (100-discount_percent)//100;
+        print("Old price %d; new price %d." % (old_price,new_price))
+        # changing the node in the loaded xml tree
+        pricetag.text = str(new_price)
+
+for elem in to_remove:
+    root.remove(elem)
+
+# now we write the modified XML
+tree.write("prices_updated.xml")
+
 ```
 
 ### INI file format
