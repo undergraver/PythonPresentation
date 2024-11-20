@@ -572,6 +572,89 @@ f.close()
 
 ```
 
+## Special text file formats
+
+Previously we've seen how to write simple text files. However in normal day to day use operating systems use a ton of specially formatted text files for various purposes:
+* configuration of programs, settings
+* exchange information across various environments (Internet, network, file system etc)
+
+The advantage of text file format is that they can be easily read by human eye and you can easily perform changes to them, if required. We're going to examine next some of the most used text file formats together with examples, references.
+
+### XML file format
+The xml file format is a way of storing data between tags. Using this way of storing information. Documentation about the format: https://en.wikipedia.org/wiki/XML
+
+### JSON file format
+The json format is very used when it comes to web services. It is preferred because it is easily digestable from Java Script, which is heavily used in modern web application. Even its name comes from that particular usage as you can see from the documentation: https://en.wikipedia.org/wiki/JSON
+
+Reading and writing XML in python is done via some embedded modules, namele the `json` module.
+In the next sections we'll only show the samples with comments where required. They can also be found in the repository under `json_examples` directory.
+
+Documentation used for the examples: https://docs.python.org/3/library/json.html
+#### Reading JSON
+```
+import json
+
+# this reads json from file directly
+#with open('example.json', 'r') as file:
+#    data = json.load(file)
+
+# this will read the file contents and use loads
+# to load the json contents
+
+f = open('example.json','r')
+buf = f.read()
+f.close()
+
+data = json.loads(buf)
+
+print("Name:"+data['first_name'])
+print('Age:'+str(data['age']))
+print('Height:'+str(data['height']))
+print('Children:'+str(data['children']))
+
+print(data['phone_numbers'][0]['number'])
+
+phoneNumbers = data['phone_numbers']
+print("Phone numbers:")
+for phone_number in phoneNumbers:
+    print("{0} number is {1}".format(phone_number['type'],phone_number['number']))
+
+
+# Print the data
+#print(data)
+
+```
+
+#### Writing JSON
+```
+import json
+
+my_json={   "car":"dacia","age":16,
+            "functional":False,"attributes":[
+                {"capacity":1190},
+                {"power":100},
+                {"model":"logan"}
+                ]}
+
+with open('json_written.json','wt') as f:
+    json.dump(my_json,f,indent=4)
+
+# note: indent parameter helps with a nice formatting
+# if indent wouldn't be specified (left with the default values)
+# the json would be written on a single line - same information, but less human readable
+#
+# please check
+```
+
+### INI file format
+it is mostly used for configuration files, especially under Windows as registry configuration files. In Python the ini files can be accessed via the configparser module. See here for more details: https://docs.python.org/3/library/configparser.html
+
+Extra info: https://en.wikipedia.org/wiki/INI_file
+
+### CSV file format
+It is a format for storing column based data (just like Excel or similar applications).
+This will be discussed in the practice section more. Make sure you check that section if needed.
+
 ## Command line arguments
 
 In the previous two example we've seen that the names of the files are written inside the python scripts. That is good for learning/testing but in real life it might be that we have multiple files whose names are not known that should be processed making it very difficult for these programs to be extendable. In such cases a very good option is to pass the files we want to process at command line. This is a very used thing in Unix environment where command line tools are extremely powerful. For example we can search for a particular string in multiple files and we can use the **cat** and **grep** commands.
