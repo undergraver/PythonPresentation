@@ -1,0 +1,19 @@
+{
+  "first_name": "Iulian",
+  "last_name": "S",
+  "is_alive": true,
+  "age": 42,
+
+  "height":1.78,
+  
+  "phone_numbers": [
+    {
+      "type": "home",
+      "number": "0777777777"
+    },
+    {
+      "type": "office",
+      "number": "0268888888"
+    }
+  ]
+}
