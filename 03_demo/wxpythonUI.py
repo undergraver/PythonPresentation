@@ -43,9 +43,12 @@ class DrawingFrame(Designed_DrawingFrame):
 
         #self.DrawCornerLines(dc)
         self.DrawChessTable(dc)
-        self.DrawRandomCircles(dc)
+        #self.DrawRandomCircles(dc)
 
         #dc.EndDrawing()
+    def OnChangedSize( self, event ):
+        self.m_drawingPanel.Refresh()
+        event.Skip()
 
     def DrawCornerLines(self,dc):
         (w,h) = dc.GetSize()
@@ -110,7 +113,7 @@ class DrawingFrame(Designed_DrawingFrame):
         for numCircle in range(numberOfCircles):
             centerx = random.randint(0,w)
             centery = random.randint(0,h)
-            radius = random.randint(5,min(w,h)/10)
+            radius = random.randint(5,min(w,h)//10)
             red = random.randint(80,255)
             green = random.randint(80,255)
             blue = random.randint(80,255)
@@ -120,8 +123,8 @@ class DrawingFrame(Designed_DrawingFrame):
 
 app = wx.PySimpleApp()
 
-frame = wxPythonDemoFrame()
-#frame = DrawingFrame()
+#frame = wxPythonDemoFrame()
+frame = DrawingFrame()
 
 frame.Show()
 app.MainLoop()

@@ -114,6 +114,7 @@ class Designed_DrawingFrame ( wx.Frame ):
         self.Centre( wx.BOTH )
 
         # Connect Events
+        self.Bind( wx.EVT_SIZE, self.OnChangedSize )
         self.m_drawingPanel.Bind( wx.EVT_PAINT, self.OnPanelPaint )
 
     def __del__( self ):
@@ -121,6 +122,9 @@ class Designed_DrawingFrame ( wx.Frame ):
 
 
     # Virtual event handlers, override them in your derived class
+    def OnChangedSize( self, event ):
+        event.Skip()
+
     def OnPanelPaint( self, event ):
         event.Skip()
 
