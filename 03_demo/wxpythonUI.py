@@ -39,17 +39,17 @@ class DrawingFrame(Designed_DrawingFrame):
     def OnPanelPaint(self,event):
         window = self.m_drawingPanel
         dc = wx.PaintDC(window)
-        dc.BeginDrawing()
+        #dc.BeginDrawing()
 
         #self.DrawCornerLines(dc)
         self.DrawChessTable(dc)
         self.DrawRandomCircles(dc)
 
-        dc.EndDrawing()
+        #dc.EndDrawing()
 
     def DrawCornerLines(self,dc):
         (w,h) = dc.GetSize()
-        xstep = w/30
+        xstep = w//30
         if w < 2*xstep or h <= 0:
             return
         
@@ -64,8 +64,8 @@ class DrawingFrame(Designed_DrawingFrame):
     def DrawChessTable(self,dc):
         (w,h) = dc.GetSize()
         space = 10
-        xwidth = (w-2*space)/8
-        ywidth = (h-2*space)/8
+        xwidth = (w-2*space)//8
+        ywidth = (h-2*space)//8
 
         if xwidth <= 0 or ywidth <= 0:
             return
@@ -74,9 +74,9 @@ class DrawingFrame(Designed_DrawingFrame):
         if xwidth < ywidth:
             squareSize = xwidth
         
-        xstart = (w - squareSize*8) / 2
+        xstart = (w - squareSize*8) // 2
         xend = xstart + 8*squareSize
-        ystart = (h - squareSize*8) / 2
+        ystart = (h - squareSize*8) // 2
         yend = ystart + 8*squareSize
 
         for xindex in range(9):
@@ -120,8 +120,8 @@ class DrawingFrame(Designed_DrawingFrame):
 
 app = wx.PySimpleApp()
 
-#frame = wxPythonDemoFrame()
-frame = DrawingFrame()
+frame = wxPythonDemoFrame()
+#frame = DrawingFrame()
 
 frame.Show()
 app.MainLoop()
