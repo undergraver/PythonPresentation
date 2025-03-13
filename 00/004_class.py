@@ -22,11 +22,21 @@ class City:
         newcountry = "/".join(city_countries)
         population = self.population + city.population
         return City(newname,newcountry,population)
-        
+    
+    def IsCityLarge(self):
+        ret = (self.population > 500000)
+        return ret
 
 
 p = City("Paris","France",11000000)
 l = City("London","UK",9000000)
+b = City("Brasov","RO",300000)
+
+for city in [ p, l, b]:
+    if city.IsCityLarge():
+        print(f"{city.name} is large.")
+    else:
+        print(f"{city.name} is small.")
 
 print(p)
 print(l)
