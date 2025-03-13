@@ -11,6 +11,10 @@ Python is an interpreted programming language. That means you cannot execute the
 In order to install it go to https://www.python.org/downloads/ and select the version you desire. 
 * For Windows you select the latest version, launch installer, make sure Python is in PATH (option from the installer) and put it in a shorter path like "C:\Python\Python313" instead of the default one (inside your user directories)
 * For Linux you should prefer to get it from your distribution's repository.
+```
+zypper search python # in suse based distros you search for python
+zypper install pyton311 # or any other versions
+```
 
 # Python Interpreter
 
